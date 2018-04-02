@@ -115,7 +115,14 @@ int is_solved(char field[][], int size){
         {
             return 1;
         }
-        }
+           else if((field[i][j] == 'O' && field[i+1][j] == 'O' && field[i-1][j] == 'O') || 
+            (field[i][j] == 'O' && field[i][j+1] == 'O'  && field[i][j-1]) || 
+            (field[i][j] == 'O' && field[i+1][j+1] == 'O' && field[i-1][j-1] == 'O') || 
+            (field[i][j] == 'O' && field[i-1][j+1] == 'O' && field[i+1][j-1] == 'O'))
+		{
+			return 1;	
+		}
+        
     }
     }
     return 0;
