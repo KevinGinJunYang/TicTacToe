@@ -3,43 +3,49 @@
 #include <stdlib.h>
 
 
-void draw_field(char field[][], int size);
-int add_cross(char field[][], int size, int position);
-int is_solved(char field[][], int size);
+void draw(int size, const char field[][size]);
+int add_cross(int size, const char field[][size], char player, int x, int y);
+int is_solved(int size, const char field[][size]);
 void validMove(char field[][], int add_cross, int size);
 
 char board; 
 
 void main(){
     
-    int inputSize;
-    int win = 0;
-    int position = 0;
-    
-    
-    
-
+   
     printf("Enter the size of field : \n");
-    scanf("%d", &inputSize);
+    int checkNumber = scanf("%d", &inputSize);
+    if(checkNumber!=1){
+       printf("That is not a number! Please enter an integer\n");
+        return;
+    }
     char boardSize[inputSize];
     for(int i = 0; i < inputSize; i++){
-        for(int x = 0; x < inputSize; x++){
-            
-        boardSize[i][x] = ' ';
-        }
+        boardSize[i] = ' ';
     }
 
+    if(inputSize >= 3 && inputSize <= 64){
 
     draw_field(boardSize,inputSize);   
     
+    }
+    else{
+        printf("That is a invalid boardSize! Please enter an integer\n");
+     return;
+    }
     
     while(win == 0){
         
      printf("Enter Position Player A: ");   
-     scanf("%d",&position);
+       int checkNumber = scanf("%d",&position);
+        
+    if(checkNumber!=1){
+       printf("That is not a number! Please enter an integer\n");
+        return;
+    }
      
      validMove(boardSize,add_cross(boardSize,inputSize,position),inputSize);
-     
+      
      win = is_solved(boardSize,inputSize);
      if(win == 1){
       printf("Player A won!\n");
@@ -47,7 +53,12 @@ void main(){
      }
      
      printf("Enter Position Player B: ");   
-     scanf("%d",&position);
+        int checkNumber2 = scanf("%d",&position); 
+        
+        if(checkNumber2!=1){
+       printf("That is invalid! Please enter an integer\n");
+        return;
+    }
      
      validMove(boardSize,add_cross(boardSize,inputSize,position),inputSize);
      
@@ -61,7 +72,7 @@ void main(){
      
 }
 
-void draw_field(char field[][], int size){
+void draw(int size, const char field[][size]){
      
     for(int j = 0; j < size; j++){
         for(int i = 0; i < size; i++){
@@ -92,7 +103,7 @@ void draw_field(char field[][], int size){
      printf("\n");
 }
 
-int add_cross(char field[][], int size, int position){
+int add_cross(int size, const char field[][size], char player, int x, int y){
     
     if(field[position-1] == ' ' && position <= size && position > 0){
         field[position-1] = 'X';
@@ -104,14 +115,14 @@ int add_cross(char field[][], int size, int position){
     return -1;
 }
  
-int is_solved(char field[][], int size){
+int is_solved(int size, const char field[][size]){
     //fix for O aswell
     for(int i = 0; i < size; i++){
         for(int j = 0; j < size; j++){
-        if(((field[i][j] == 'X' || field[i][j] == 'O')&& field[i+1][j] == 'X' && field[i-1][j] == 'X') || 
-            ((field[i][j] == 'X' || field[i][j] == 'O')&& field[i][j+1] == 'X' && field[i][j-1]) || 
-            ((field[i][j] == 'X' || field[i][j] == 'O')&& field[i+1][j+1] == 'X' && field[i-1][j-1] == 'X') || 
-            (((field[i][j] == 'X' || field[i][j] == 'O') && field[i-1][j+1] == 'X'&& field[i+1][j-1] == 'X'))
+        if((field[i][j] == 'X' && field[i+1][j] == 'X' && field[i-1][j] == 'X') || 
+            (field[i][j] == 'X' && field[i][j+1] == 'X' && field[i][j-1]) || 
+            (field[i][j] == 'X' && field[i+1][j+1] == 'X' && field[i-1][j-1] == 'X') || 
+            (field[i][j] == 'X'  && field[i-1][j+1] == 'X'&& field[i+1][j-1] == 'X'))
         {
             return 1;
         }
