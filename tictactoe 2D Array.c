@@ -39,13 +39,7 @@
 
             printf("Enter Position Player A: ");  
             scanf("%d %d",&positionX,&positionY);
-            
-            
-            // Need to account for bad inputs 
-           /* if(checkNumber!=1 1){
-              printf("That is not a number! Please enter an integer\n");
-              return;
-              }*/
+
 
             add_cross(inputSize,boardSize,'A',positionX,positionY);
             win = is_solved(inputSize, boardSize);
@@ -57,10 +51,6 @@
             printf("Enter Position Player B: ");   
             int checkNumber2 = scanf("%d %d",&positionX,&positionY);
 
-            /*if(checkNumber2!=1 1){
-             printf("That is invalid! Please enter an integer\n");
-             return;
-             }*/
 
             add_cross(inputSize,boardSize,'B',positionX,positionY);
             
@@ -90,7 +80,6 @@
             
             printf("%d",temp);
 
-            // draw "| "
             for (int i = 0; i < size; i++){
                 printf("|%c",field[i][temp-1]);
             }
@@ -109,8 +98,8 @@
           for(int i = 0; i < size; i++){
             printf(" %d", i + 1);
         }
-        printf(" \n");
-
+          printf(" \n");
+    
     }
 
     int add_cross(int size, char field[][size], const char player, int x, int y){
