@@ -39,7 +39,9 @@
 
             printf("Enter Position Player A: ");  
             scanf("%d %d",&positionX,&positionY);
-
+            
+            
+            // Need to account for bad inputs 
            /* if(checkNumber!=1 1){
               printf("That is not a number! Please enter an integer\n");
               return;
