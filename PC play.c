@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
  
     void draw(int size, const char field[][size]);
     int add_cross(int size, char field[][size], const char player, int x, int y);
     int is_solved(int size, const char field[][size]);
+    void make_turn(int size, char field[][size]);
 
     int inputSize;
     int win = 0;
@@ -49,10 +49,10 @@
                 break;
             }
 
-            printf("Enter Position PC:");   
-           make_turn(inputSize, boardSize);
+            printf("Enter Position PC: %d %d\n", positionX, positionY);   
+            make_turn(inputSize, boardSize);
+  
 
-            add_cross(inputSize,boardSize,'B',positionX,positionY);
             
             win = is_solved(inputSize,boardSize);
             if(win == 1){
@@ -75,6 +75,8 @@
             for(int i = 1; i <= size; i++){
               printf("+-");
             }
+
+
             printf("+\n");
            
             
@@ -100,6 +102,8 @@
         }
           printf(" \n");
     
+
+
     }
 
     int add_cross(int size, char field[][size], const char player, int x, int y){
@@ -113,7 +117,10 @@
             }
               draw(size,field);
         }else if((field[x-1][y-1] == 'X'||field[x-1][y-1] == 'O')&& x <= size && y <=size){
-            printf("X is already there!\n"); 
+            if(player == 'A') printf("Position already taken!\n");
+            else{
+            make_turn(inputSize, field);
+            }
         }
         else{
             printf("Wrong position!\n");
@@ -122,7 +129,7 @@
     }
         
     int is_solved(int size, const char field[][size]){
- 
+        //fix for O aswell
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
                 if((field[i][j] == 'X' && field[i+1][j] == 'X' && field[i-1][j] == 'X') || 
@@ -137,21 +144,19 @@
                 (field[i][j] == 'O' && field[i+1][j+1] == 'O' && field[i-1][j-1] == 'O') || 
                 (field[i][j] == 'O' && field[i-1][j+1] == 'O' && field[i+1][j-1] == 'O'))
                 {
-                    return 1;   
+                    return 1;	
                 }
 
             }
         }
         return 0;
     }
-	
-	void make_turn(int size, char field[][size]){
-		int PCinput = 0;
-		while(PCinput !=1){
-			srand(time(NULL));
-			positionX = (rand()%size) +1;
-			positionY = (rand()%size) + 1;
-			PCinput = add_cross(inputSize, field,'B',positionX, positionY);
-		}
-		}
-	}
+    
+    
+   void make_turn(int size, char field[][size]){
+    positionX = (rand()%size) +1;
+    positionY = (rand()%size) + 1;
+    add_cross(inputSize, field,'B',positionX, positionY);
+
+}
+
