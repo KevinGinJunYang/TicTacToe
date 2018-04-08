@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-    
+#include <time.h>
  
     void draw(int size, const char field[][size]);
     int add_cross(int size, char field[][size], const char player, int x, int y);
@@ -11,6 +11,7 @@
     int win = 0;
     int positionX = 0;
     int positionY = 0; 
+	char PC;
     
     
     void main(){
@@ -48,15 +49,14 @@
                 break;
             }
 
-            printf("Enter Position Player B: ");   
-            int checkNumber2 = scanf("%d %d",&positionX,&positionY);
-
+            printf("Enter Position PC:");   
+           make_turn(inputSize, boardSize);
 
             add_cross(inputSize,boardSize,'B',positionX,positionY);
             
             win = is_solved(inputSize,boardSize);
             if(win == 1){
-                printf("Player B won!\n");
+                printf("PC won!\n");
                 break;
             }
 
@@ -76,7 +76,7 @@
               printf("+-");
             }
             printf("+\n");
-            i = 0;
+           
             
             printf("%d",temp);
 
@@ -144,3 +144,14 @@
         }
         return 0;
     }
+	
+	void make_turn(int size, char field[][size]){
+		int PCinput = 0;
+		while(PCinput !=1){
+			srand(time(NULL));
+			positionX = (rand()%size) +1;
+			positionY = (rand()%size) + 1;
+			PCinput = add_cross(inputSize, field,'B',positionX, positionY);
+		}
+		}
+	}
