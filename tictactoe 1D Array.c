@@ -7,7 +7,6 @@
 void draw_field(const char field[], int size);
 int add_cross(char field[], int size, int position);
 int is_solved(const char field[], int size);
-void validMove(char field[], int add_cross, int size);
 
 char board; 
 int inputSize;
@@ -110,12 +109,14 @@ int add_cross(char field[], int size, int position){
     
     if(field[position-1] == ' ' && position <= size && position > 0){
         field[position-1] = 'X';
-        return 1;
+       draw_field(field,size);
     }
     else if(field[position-1] == 'X' && position <= size){
-        return 0;
+         printf("X is already there!\n");
+    }else{
+        
+    printf("Wrong position!\n");
     }
-    return -1;
 }
  
 int is_solved(const char field[], int size){
@@ -128,16 +129,3 @@ int is_solved(const char field[], int size){
     return 0;
 }
 
-void validMove(char field[], int add_cross, int size){
-    
-        if(add_cross ==1){
-            draw_field(field,size);
-        }
-        else if(add_cross == 0){
-            printf("X is already there!\n");
-        }
-        else if(add_cross == -1){
-            printf("Wrong position!\n");
-        }
-        
-}
