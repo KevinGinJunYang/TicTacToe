@@ -76,7 +76,7 @@
               printf("+-");
             }
             printf("+\n");
-            i = 0;
+          
             
             printf("%d",temp);
 
