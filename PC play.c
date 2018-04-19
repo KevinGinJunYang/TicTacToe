@@ -18,7 +18,7 @@
         printf("Enter the size of field: ");
         int check = scanf("%d", &inputSize);
         if(check!=1){
-            printf("That is not a number! Please enter an integer\n");
+            printf("That is not a number! Please enter an integer\n"); // need to fix so it returns again 
             return;
         }
         
