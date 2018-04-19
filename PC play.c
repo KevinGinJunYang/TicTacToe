@@ -15,12 +15,28 @@
     
     
     void main(){
-        printf("Enter the size of field: ");
-        int check = scanf("%d", &inputSize);
-        if(check!=1){
-            printf("That is not a number! Please enter an integer\n"); // need to fix so it returns again 
-            return;
-        }
+      	while(inputSize == 0){// keeps looping until a valid answer is given 
+		printf("Enter the size of field : \n");
+		fgets(userInput, MaxSize, stdin);// gets userinput 
+
+		if(strlen(userInput) < 2 || strlen(userInput) > 3){// checks if userinput of char is greater than boardsize
+			printf("Invalid Input\n");   
+			continue;
+		}
+
+		if(sscanf(userInput, "%d" , &inputSize) != 1){// checks if the boardsize is a single digit
+			inputSize = 0;
+			printf("Invalid Input\n");
+			continue;
+		}
+
+		if(inputSize < MinSize || inputSize > MaxSize){// checks if userinput is within the boardsize range
+			inputSize = 0;
+			printf("Invalid board size!\n");
+			continue;
+		}
+
+	}
         
         char boardSize[inputSize][inputSize];
         for(int i = 0; i < inputSize; i++){
